@@ -13,6 +13,7 @@ const addProductBtn = document.getElementById('add-product-btn');
 const productFormContainer = document.getElementById('product-form-container');
 const productForm = document.getElementById('product-form');
 const formTitle = document.getElementById('form-title');
+const descriptionInput = document.getElementById('description');
 const productsTableBody = document.getElementById('products-table-body');
 const featuresContainer = document.getElementById('features-container');
 const addFeatureBtn = document.getElementById('add-feature');
@@ -143,6 +144,7 @@ async function saveProduct(e) {
     const title = document.getElementById('title').value;
     const category = document.getElementById('category').value;
     const price = parseFloat(document.getElementById('price').value);
+    const description = document.getElementById('description').value;
     const file = imageUpload.files[0];
     let imageUrl = '';
     
@@ -215,6 +217,7 @@ function renderProducts(products) {
             <td>${product.title}</td>
             <td>${product.category}</td>
             <td>R${product.price}</td>
+            <td>${product.description}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Delete</button>
@@ -275,6 +278,7 @@ async function saveProduct(e) {
     const title = document.getElementById('title').value;
     const category = document.getElementById('category').value;
     const price = parseFloat(document.getElementById('price').value);
+    const description = document.getElementById('description').value;
     const file = imageUpload.files[0];
     let imageUrl = '';
     
@@ -300,7 +304,8 @@ async function saveProduct(e) {
         category,
         price,
         features: features.join(', '),
-        image: imageUrl
+        image: imageUrl,
+        description
     }]);
     
     hideLoading();
@@ -361,6 +366,7 @@ async function editProduct(id) {
     document.getElementById('title').value = product.title;
     document.getElementById('category').value = product.category;
     document.getElementById('price').value = product.price;
+    document.getElementById('description').value = product.description;
     
     // Handle features
     features = product.features ? product.features.split(', ') : [];
@@ -395,6 +401,7 @@ async function updateProduct(id) {
     const title = document.getElementById('title').value;
     const category = document.getElementById('category').value;
     const price = parseFloat(document.getElementById('price').value);
+    const description = document.getElementById('description').value;
     const file = imageUpload.files[0];
     let imageUrl = currentImages.length > 0 ? currentImages[0] : '';
     
@@ -421,7 +428,8 @@ async function updateProduct(id) {
             category,
             price,
             features: features.join(', '),
-            image: imageUrl
+            image: imageUrl,
+            description
         })
         .eq('id', id);
     
